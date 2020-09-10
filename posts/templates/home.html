@@ -1,0 +1,50 @@
+{% load static %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>画像一覧</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<style>
+			.contents_wrapper{
+				background-color: pink;
+				margin: 0;
+			}
+
+			.img_view{
+				width: 150px;
+				height: 150px;
+			}
+			.top_title{
+				color: white;
+			}
+			.image_flex{
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.contents{
+				margin-right: 10px;
+			}
+			.post_title{
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="contents_wrapper">
+			<h1 class="top_title">My Collections</h1>
+			<a href="http://127.0.0.1:8000/post/" title="register">追加</a>
+			<ul class="image_flex">
+			  {% for post in object_list %}
+			  	<div class="contents">
+				    <h2 class="post_title">{{ post.title }}</h2>
+				    <form action="/deleteTodo/{{ post.id }}/" method="post" accept-charset="utf-8">
+				    	{% csrf_token %}
+				    	<input type="submit" value="delete">
+				    </form>
+				    <img src="{{ post.cover.url }}" alt="{{ post.title }}" class="img_view">
+				</div>
+			  {% endfor %}
+			</ul>
+		</div>
+	</body>
+</html>
